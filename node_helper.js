@@ -3,20 +3,12 @@
 var ip = require('ip');
 
 module.exports = NodeHelper.create({
-	start: function() {	
-		
-		this.checkMails();
- 	},
-
- 	checkMails: function(){
-		this.updateIp();
- 	},
 
 	socketNotificationReceived: function(notification, payload) {
 		
 		if(notification === "CONNECTED"){
 			console.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
-			this.updateIp();
+			this.updateUi();
 		}
 
 		if (notification === "LOG"){
@@ -27,8 +19,8 @@ module.exports = NodeHelper.create({
 	updateUi: function () {
 		var self = this;
 		setInterval(function() {
-			self.checkMails();
-		}, 5000);
+			self.updateIp();
+		}, 50000);
 	},
 
 	updateIp: function() {
